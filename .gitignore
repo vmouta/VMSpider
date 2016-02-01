@@ -1,8 +1,19 @@
 # Compiled python modules.
 *.pyc
+*.pyo
 
 # Setuptools distribution folder.
 /dist/
 
 # Python egg metadata, regenerated from source files by setuptools.
 **/*.egg-info
+
+.installed.cfg
+bin
+develop-eggs
+dist
+downloads
+eggs
+parts
+lib
+lib64
