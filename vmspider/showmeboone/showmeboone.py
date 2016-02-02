@@ -3,6 +3,17 @@
 import csv
 import requests
 from BeautifulSoup import BeautifulSoup
+from vmspider import Fetcher
+
+class ShowMeBoone(Fetcher):
+
+    def __init__(self, query=None, country=None):
+        '''Constructor'''
+        self.query = query
+
+    def __str__(self):
+        return ("Query: %s\ncountry=%s" % (self.query, self.country if self.country else "All"))
+
 
 def htmlFetch():
     url = 'http://www.showmeboone.com/sheriff/JailResidents/JailResidents.asp'

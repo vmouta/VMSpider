@@ -7,5 +7,7 @@ setup(name='vmspider',
       author='Vasco Mouta',
       author_email='vasco.mouta@gmail.com',
       license='MIT',
-      packages=['linkedin','showmeboone'],
+      packages=find_packages(),
+      entry_points={'scrapy': ['settings = vmspider.settings'] ,
+                    'console_scripts': ['vmspider = vmspider.__main__:main' ]},
       zip_safe=False)

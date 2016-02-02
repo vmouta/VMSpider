@@ -17,3 +17,5 @@ eggs
 parts
 lib
 lib64
+#virtual enviroment
+venv
