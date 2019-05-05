@@ -3,17 +3,15 @@
 import os
 import sys
 import getopt
-import linkedin
-import showmeboone
 
-from linkedin import LinkedIn
+from bs4 import BeautifulSoup
+from .linkedin import LinkedIn
 
 #globals
 verbose = False
 platforms = ["linkdin" , "showmeboone"]
 platform = platforms[0]
 output_file_name = None
-
 login = None
 password = None
 
@@ -22,23 +20,27 @@ query = None
 #linkedin Globals
 linkedin_country = None
 
+
 def remove_file(filename):
     if os.path.exists(filename):
         try:
             os.remove(filename)
-        except OSError, e:
+        except OSError as e:
             print ("Error: %s - %s." % (e.filename,e.strerror))
     else:
         print("Sorry, I can not find %s file." % filename)
+
 
 # standard command line functions
 def print_no_arguments(command):
     print("Usage: %s [OPTION]... [QUERY]" % command);
     print("Try '%s --help' for more information." % command);
 
+
 def print_wrong_arguments(command, error):
     print(str(error));
     print("Try '%s --help' for more information." % command);
+
 
 def print_help(command, platform):
     
@@ -64,8 +66,8 @@ def print_help(command, platform):
     print("  -,  --in             - Read query string from sys.stdin");
     print("  -o, --out            - Output file");
     print("\nLinkedIn platform Options:");
-    print("      --listcountries  - Display the list of countries available for option \"-c\"");
     print("  -c, --country        - Set a sepecific country for fetch the contacts");
+
 
 def print_values():
     print("----INPUT VALUES----")
@@ -76,20 +78,22 @@ def print_values():
     print("Country:%s" % linkedin_country)
     print("--------")
 
+
 def read_options(argn, argc, argv):
     try:
-        opts, args = getopt.getopt(argv,"hvrc:p:l:w:o:q:",["help", "verbose", "remove", "listcountries", "country=", "platform=", "login=", "passoword=", "out=", "query=", "in"])
+        opts, args = getopt.getopt(argv,"hvrc:p:l:w:o:q:",["help", "listcountries", "verbose", "remove", "country=", "platform=", "login=", "passoword=", "out=", "query=", "in"])
     except getopt.GetoptError as e:
         print_wrong_arguments(argn, e)
         sys.exit(2)
 
     optind = 0
+    global platform
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print_help(argn, arg)
+            print_help(argn, platform)
             sys.exit(0)
         elif opt == "--listcountries":
-            print "\n".join(linkedin.countriesNameCode())
+            print ("\n".join())
             sys.exit(0)
         elif opt in ("-v", "--verbose"):
             global verbose
@@ -103,7 +107,7 @@ def read_options(argn, argc, argv):
             global output_file_name
             output_file_name = arg
         elif opt in ("-p", "--platform"):
-            global platform
+
             if arg in platforms:
                 platform = arg
             else:
@@ -138,16 +142,17 @@ def read_options(argn, argc, argv):
             fetch = LinkedIn(query, linkedin_country, verbose=verbose, login=login, password=password)
         else:
             fetch = LinkedIn(query, linkedin_country, verbose=verbose)
-    elif x == 'showmeboone':
-        fetch = ShowMeBoone()
+    elif platform == 'showmeboone':
+        fetch = BeautifulSoup()
     else:
         print("Upsssss, update needed")
 
     if verbose == True:
-        print "Object Type - %s" % fetch
+        print ("Object Type - %s" % fetch)
 
     # Fetch result
     fetch.csv(output_file_name)
+
 
 # main command line function
 def main(argn, argc, argv):
@@ -159,6 +164,7 @@ def main(argn, argc, argv):
 
     #fetch options
     read_options(argn, argc, argv)
+
 
 if __name__ == "__main__":
     argv = sys.argv[1:]

@@ -2,8 +2,9 @@
 
 import csv
 import requests
-from BeautifulSoup import BeautifulSoup
-from vmspider import Fetcher
+from bs4 import BeautifulSoup
+from vmspider.vmspider import Fetcher
+
 
 class ShowMeBoone(Fetcher):
 
@@ -32,6 +33,7 @@ def htmlFetch():
     writer = csv.writer(outfile)
     writer.writerow(["Last", "First", "Middle", "Gender", "Race", "Age", "City", "State"])
     writer.writerows(list_of_rows)
+
 
 if __name__ == "__main__":
     print(htmlFetch())

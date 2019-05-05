@@ -11,6 +11,8 @@ INSTRUCTIONS
 -In order to run this scraper, you need to go and install requests.  (e.g $ pip install requests)
 -In order to run this scraper, you need to go and install scrapy.  (e.g $ pip install scrapy)
 
+-You may need to install pip (e.g mac:  $ sudo easy_install pip)
+
 -Once you do, all you need to do is jump into your terminal or command line and navigate to ~/VMSpider/
 $python vmspider
 or

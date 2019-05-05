@@ -3,31 +3,35 @@
 
 import csv
 
-import cookielib
+try:
+    import http.cookiejar
+    import urllib3
+except ImportError:
+    import cookielib
+    import urllib2
+
 import os
 import urllib
-import urllib2
-import re
-import ast
 import json
 import unicodedata
-import pprint
 
-from BeautifulSoup import BeautifulSoup
-
+from .person import Person
+from .person import csvHeader
 from vmspider import Fetcher
-from person import Person
-from person import csvHeader
-from countries import countryUrlForCode
+
+from bs4 import BeautifulSoup
+
 
 test = False
 debug = False
 def printLine(str):
     if debug:
-        print str
+        print (str)
+
 
 def unicodeHandle(stuff):
     return unicodedata.normalize('NFKD', stuff).encode('ascii','ignore')
+
 
 class LinkedIn(Fetcher):
 
@@ -124,7 +128,7 @@ class LinkedIn(Fetcher):
                 with open('linkedin_html.txt', 'r') as myfile:
                     pageHtml=myfile.read().replace('\n', '')
             except:
-                    print "linkedin_html.txt - not found file with html for testing - try to generate"
+                    print ("linkedin_html.txt - not found file with html for testing - try to generate")
                     pageHtml = self.loadPage(url)
                     f = open("linkedin_html.txt","w+")
                     f.write(pageHtml)
@@ -140,7 +144,7 @@ class LinkedIn(Fetcher):
                 with open('person_html.txt', 'r') as myfile:
                     html=myfile.read().replace('\n', '')
             except:
-                print "person_html.txt - not found file with html for testing - try to generate"
+                print ("person_html.txt - not found file with html for testing - try to generate")
                 html = self.loadPage(personUrl)
                 f = open("person_html.txt","w+")
                 f.write(html)
@@ -177,7 +181,7 @@ class LinkedIn(Fetcher):
                     writer.writerow(csvHeader())
                     writer.writerows(list_persons_csv)
         else:
-            print "upss no content!!! - Probably something change or cookie old"
+            print ("upss no content!!! - Probably something change or cookie old")
 
 
 

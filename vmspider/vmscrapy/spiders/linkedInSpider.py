@@ -11,6 +11,7 @@ def striplist(l):
     l = [x.strip().replace('\t',"") for x in l]
     return [x for x in l if x != u'']
 
+
 class LinkedInSpider(BaseSpider):
     name = "linkedin"
     allowed_domains = ["linkedin.com"]

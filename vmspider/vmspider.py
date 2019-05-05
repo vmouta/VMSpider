@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # showmeboone spider
 
+
 class Fetcher:
 
     def csv(self):

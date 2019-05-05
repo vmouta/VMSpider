@@ -3,9 +3,11 @@
 
 import re
 import requests
-from BeautifulSoup import BeautifulSoup
+
+from bs4 import BeautifulSoup
 
 list_of_countries = None
+
 
 # linkdin countries spider
 def htmlFetch():
@@ -13,6 +15,7 @@ def htmlFetch():
     response = requests.get(url)
     html = response.content
     return html
+
 
 def countriesFetch():
     html = htmlFetch()
@@ -28,20 +31,25 @@ def countriesFetch():
             list_of_countries[code] = ([code, values[0], values[1], url])
     return list_of_countries
 
+
 def countriesNameCode():
     t = tuple("%s - %s" %(x[0], x[1]) for x in (list_of_countries if list_of_countries != None else countriesFetch()).values())
     return t
+
 
 def countryNames():
     t = tuple(x[1] for x in (list_of_countries if list_of_countries != None else countriesFetch()).values())
     return t
 
+
 def countryCodes():
     t = tuple(x[0] for x in (list_of_countries if list_of_countries != None else countriesFetch()).values())
     return t
 
+
 def countryUrlForCode(code):
     return (list_of_countries if list_of_countries != None else countriesFetch())[code][3]
+
 
 if __name__ == "__main__":
     print(countriesFetch())

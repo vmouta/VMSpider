@@ -1,4 +1,5 @@
 from setuptools import setup
+from setuptools import find_packages
 
 setup(name='vmspider',
       version='0.1',
@@ -9,5 +10,5 @@ setup(name='vmspider',
       license='MIT',
       packages=find_packages(),
       entry_points={'scrapy': ['settings = vmspider.settings'] ,
-                    'console_scripts': ['vmspider = vmspider.__main__:main' ]},
+                    'console_scripts': ['vmspider = vmspider.__main__:main']},
       zip_safe=False)

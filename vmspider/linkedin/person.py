@@ -3,7 +3,7 @@
 
 import unicodedata
 
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 
 def unicodeHandle(stuff):
     return unicodedata.normalize('NFKD', stuff).encode('ascii','ignore')
@@ -87,5 +87,6 @@ class Person:
     def csv(self):
         return [self.firstName, self.lastName, self.location, self.country, self.company, self.position, self.industry]
 
+
 def csvHeader():
-    return ["firstName","lastName","location","country","company","position","industry"]
+    return ["firstName", "lastName", "location", "country", "company", "position", "industry"]
